@@ -1,723 +1,622 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cristian Saldaña — Dev</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --bg: #0c0c0e;
-      --surface: #13131a;
-      --surface2: #1a1a26;
-      --accent: #7fff6e;
-      --accent2: #4fffdc;
-      --text: #e8e8f0;
-      /* Muted mejorado para mayor legibilidad (antes #7a7a96) */
-      --muted: #9a9ab8;
-      --border: rgba(255,255,255,0.08);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Cristian Roberto Saldaña Ortiz | CV Profesional - Verde Esmeralda</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.5;
+            padding: 2rem 1.5rem;
+            transition: background-color 0.25s ease, color 0.2s ease;
+        }
 
-    html { scroll-behavior: smooth; }
+        /* TEMA VERDE (CLARO) */
+        :root {
+            --bg-body: #ecfdf5;
+            --bg-card: #ffffff;
+            --text-primary: #064e3b;
+            --text-secondary: #065f46;
+            --text-muted: #047857;
+            --border-light: #a7f3d0;
+            --accent: #10b981;
+            --accent-dark: #059669;
+            --accent-soft: #d1fae5;
+            --badge-bg: #d1fae5;
+            --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 20px 25px -12px rgba(0, 0, 0, 0.05);
+            --btn-bg: #ecfdf5;
+            --btn-hover: #d1fae5;
+            --card-hover: #f0fdf4;
+            --header-bg: rgba(255,255,255,0.7);
+        }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+        /* TEMA VERDE (OSCURO) */
+        body.dark {
+            --bg-body: #022c22;
+            --bg-card: #064e3b;
+            --text-primary: #ecfdf5;
+            --text-secondary: #d1fae5;
+            --text-muted: #a7f3d0;
+            --border-light: #065f46;
+            --accent: #34d399;
+            --accent-dark: #10b981;
+            --accent-soft: #064e3b;
+            --badge-bg: #065f46;
+            --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --btn-bg: #065f46;
+            --btn-hover: #047857;
+            --card-hover: #065f46;
+            --header-bg: rgba(6, 78, 59, 0.8);
+        }
 
-    /* ── NOISE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.3;
-    }
+        .cv-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 2rem;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            position: relative;
+        }
 
-    /* ── CURSOR ── */
-    .cursor {
-      position: fixed;
-      width: 10px; height: 10px;
-      background: var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 10000;
-      transition: transform 0.15s ease, width 0.2s, height 0.2s;
-      mix-blend-mode: difference;
-    }
-    .cursor-ring {
-      position: fixed;
-      width: 36px; height: 36px;
-      border: 1px solid rgba(127,255,110,0.4);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.35s cubic-bezier(0.23,1,0.32,1);
-    }
+        /* Barra superior flotante para controles */
+        .controls-bar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding: 0.8rem 1.5rem;
+            background: var(--header-bg);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-light);
+        }
 
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      position: relative;
-      overflow: hidden;
-    }
+        /* Switch de idioma moderno */
+        .lang-switch {
+            display: flex;
+            background: var(--btn-bg);
+            border-radius: 40px;
+            padding: 0.2rem;
+            gap: 2px;
+            border: 1px solid var(--border-light);
+        }
+        .lang-option {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.3rem 0.9rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+        .lang-option.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .lang-option:not(.active):hover {
+            background: var(--btn-hover);
+            color: var(--text-primary);
+        }
 
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 80px 60px;
-      position: relative;
-      z-index: 2;
-    }
+        /* Botón de tema (solo ícono) */
+        .theme-icon-btn {
+            background: var(--btn-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+        .theme-icon-btn:hover {
+            background: var(--btn-hover);
+            transform: rotate(15deg);
+        }
 
-    .hero-right {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        /* Botón exportar */
+        .export-btn {
+            background: var(--btn-bg);
+            border: 1px solid var(--border-light);
+            padding: 0 1rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-primary);
+            transition: 0.2s;
+            height: 38px;
+        }
+        .export-btn:hover {
+            background: var(--btn-hover);
+            transform: translateY(-2px);
+        }
 
-    /* BG blobs */
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.15;
-      animation: drift 8s ease-in-out infinite alternate;
-    }
-    .blob-1 { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; animation-delay: 0s; }
-    .blob-2 { width: 350px; height: 350px; background: var(--accent2); bottom: 100px; left: 30%; animation-delay: -3s; }
+        .cv-inner {
+            display: flex;
+            flex-wrap: wrap;
+        }
 
-    @keyframes drift {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(30px, 20px) scale(1.08); }
-    }
+        /* Sidebar */
+        .sidebar {
+            flex: 1.2;
+            min-width: 280px;
+            background-color: var(--accent-soft);
+            padding: 2rem 1.8rem;
+            border-right: 1px solid var(--border-light);
+        }
 
-    .tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.2s forwards;
-    }
-    .tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+        .main-content {
+            flex: 2.8;
+            padding: 2rem 2rem;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        /* Animación al cambiar idioma */
+        .main-content.fade-transition {
+            opacity: 0;
+            transform: translateY(6px);
+        }
 
-    h1.name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(48px, 6vw, 88px);
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-      color: var(--text);
-      opacity: 0;
-      animation: fadeUp 0.8s 0.35s forwards;
-    }
+        /* ========== IMAGEN MÁS GRANDE ========== */
+        .image-manual-area {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .avatar-frame {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 4px solid var(--accent);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .avatar-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            image-rendering: auto;
+        }
+        .avatar-placeholder-icon {
+            font-size: 5rem;
+            color: var(--accent);
+            opacity: 0.8;
+        }
+        .manual-hint {
+            font-size: 0.65rem;
+            background: var(--btn-bg);
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-family: monospace;
+        }
 
-    h1.name span {
-      display: block;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(232,232,240,0.35);
-    }
+        .name {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+        .badge-title {
+            font-size: 0.8rem;
+            background: var(--badge-bg);
+            display: inline-block;
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            color: var(--accent-dark);
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+        }
 
-    /* Descripción: ahora con blanco translúcido para destacar sobre el fondo */
-    .hero-desc {
-      margin-top: 32px;
-      max-width: 420px;
-      font-size: 15px;
-      color: rgba(255, 255, 255, 0.75);
-      line-height: 1.75;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.5s forwards;
-      font-weight: 400;
-    }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 0.7rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            word-break: break-word;
+        }
+        .contact-item i {
+            width: 24px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+        .divider {
+            height: 1px;
+            background: var(--border-light);
+            margin: 1rem 0;
+        }
 
-    .hero-contacts {
-      margin-top: 48px;
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.65s forwards;
-    }
+        /* Secciones dinámicas */
+        .section {
+            margin-bottom: 2rem;
+        }
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+            background: linear-gradient(90deg, var(--accent-soft), transparent);
+            border-radius: 0 12px 12px 0;
+        }
 
-    /* Chips de contacto más visibles y con mejor contraste */
-    .contact-chip {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 100px;
-      padding: 8px 18px;
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.85);
-      transition: all 0.25s;
-      text-decoration: none;
-      backdrop-filter: blur(4px);
-    }
-    .contact-chip:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(127, 255, 110, 0.08);
-      transform: translateY(-2px);
-    }
-    .contact-chip svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+        .about-text {
+            background: var(--accent-soft);
+            padding: 1.2rem;
+            border-radius: 1.2rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid var(--accent);
+            font-size: 0.95rem;
+        }
 
-    /* PHOTO / CARD */
-    .photo-wrap {
-      position: relative;
-      width: 280px;
-      height: 340px;
-      opacity: 0;
-      animation: fadeIn 1s 0.8s forwards;
-    }
-    .photo-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, var(--accent), transparent 60%, var(--accent2));
-      z-index: 0;
-    }
-    .photo-inner {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      border-radius: 22px;
-      background: var(--surface2);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 1.2rem;
+            padding: 1rem 1.2rem;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent);
+        }
+        .project-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0.6rem;
+            color: var(--accent);
+        }
+        .project-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .tech-tag {
+            display: inline-block;
+            background: var(--btn-bg);
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            margin-top: 0.7rem;
+        }
 
-    .profile-pic {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+        .education-item, .lang-item, .skill-badge {
+            margin-bottom: 1rem;
+        }
+        .edu-degree {
+            font-weight: 700;
+        }
+        .edu-institution {
+            font-weight: 500;
+            color: var(--accent);
+            font-size: 0.85rem;
+        }
+        .skill-badge {
+            background: var(--btn-bg);
+            padding: 0.6rem 1rem;
+            border-radius: 14px;
+            border-left: 3px solid var(--accent);
+        }
 
-    .photo-initials-fallback {
-      font-family: 'Syne', sans-serif;
-      font-size: 72px;
-      font-weight: 800;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(127,255,110,0.3);
-      letter-spacing: -4px;
-      position: absolute;
-      z-index: 0;
-      pointer-events: none;
-    }
+        /* Responsividad mejorada para la imagen más grande */
+        @media (max-width: 780px) {
+            body { padding: 1rem; }
+            .sidebar { border-right: none; border-bottom: 1px solid var(--border-light); }
+            .cv-inner { flex-direction: column; }
+            .name { font-size: 1.7rem; }
+            .section-title { font-size: 1.25rem; }
+            .controls-bar { padding: 0.5rem 1rem; }
+            .avatar-frame {
+                width: 180px;
+                height: 180px;
+            }
+        }
 
-    .photo-badge {
-      position: absolute;
-      bottom: -16px;
-      right: -16px;
-      background: var(--accent);
-      color: #0c0c0e;
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      padding: 10px 16px;
-      border-radius: 12px;
-      z-index: 2;
-    }
+        @media (max-width: 600px) {
+            .sidebar, .main-content { padding: 1.5rem; }
+            .name { font-size: 1.5rem; }
+            .avatar-frame {
+                width: 150px;
+                height: 150px;
+            }
+            .projects-grid { grid-template-columns: 1fr; }
+            .controls-bar { justify-content: center; flex-wrap: wrap; }
+        }
 
-    /* ── SCROLL INDICATOR ── */
-    .scroll-hint {
-      position: absolute;
-      bottom: 40px;
-      left: 60px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      color: var(--muted);
-      opacity: 0;
-      animation: fadeIn 1s 1.2s forwards;
-    }
-    .scroll-line {
-      width: 1px;
-      height: 48px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        /* Estilos impresión */
+        @media print {
+            .controls-bar { display: none; }
+            body { background: white; padding: 0; }
+            .cv-container { box-shadow: none; border: none; }
+            .sidebar { background-color: #f0fdf4 !important; }
+        }
 
-    /* ── SECTIONS ── */
-    .section {
-      padding: 120px 60px;
-      max-width: 1200px;
-      margin: 0 auto;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .section.visible { opacity: 1; transform: translateY(0); }
-
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--accent); opacity: 0.4; }
-
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: clamp(32px, 4vw, 52px);
-      line-height: 1;
-      letter-spacing: -0.02em;
-      margin-bottom: 64px;
-      color: var(--text);
-    }
-
-    /* SKILLS GRID */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 12px;
-    }
-
-    .skill-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px 16px;
-      text-align: center;
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      color: var(--text);
-      transition: all 0.3s;
-      cursor: default;
-      position: relative;
-      overflow: hidden;
-      font-weight: 400;
-    }
-    .skill-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .skill-card:hover::before { opacity: 0.1; }
-    .skill-card:hover { border-color: rgba(127,255,110,0.5); color: var(--text); transform: translateY(-3px); }
-    .skill-icon { font-size: 22px; margin-bottom: 8px; display: block; position: relative; z-index: 1; }
-    .skill-name { position: relative; z-index: 1; }
-
-    /* EDUCATION TIMELINE */
-    .timeline {
-      position: relative;
-      padding-left: 40px;
-    }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 8px; bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 52px;
-    }
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -46px; top: 6px;
-      width: 10px; height: 10px;
-      background: var(--accent);
-      border-radius: 50%;
-      box-shadow: 0 0 12px var(--accent);
-    }
-
-    .t-period {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-      margin-bottom: 6px;
-    }
-    .t-degree {
-      font-family: 'Syne', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-    .t-school {
-      font-size: 13px;
-      color: var(--muted);
-    }
-    .t-badge {
-      display: inline-block;
-      margin-top: 10px;
-      background: rgba(127,255,110,0.12);
-      border: 1px solid rgba(127,255,110,0.3);
-      color: var(--accent);
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      padding: 4px 12px;
-      border-radius: 100px;
-      letter-spacing: 0.08em;
-    }
-
-    /* SOFT SKILLS */
-    .soft-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    .soft-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 24px;
-      transition: all 0.3s;
-    }
-    .soft-card:hover { border-color: rgba(79,255,220,0.4); transform: translateY(-4px); }
-    .soft-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 40px;
-      font-weight: 800;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(79,255,220,0.25);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    .soft-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    /* LANGUAGES */
-    .lang-row {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .lang-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      min-width: 120px;
-    }
-    .lang-bar-wrap { flex: 1; height: 4px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
-    .lang-bar { height: 100%; border-radius: 4px; background: linear-gradient(to right, var(--accent), var(--accent2)); transform-origin: left; transform: scaleX(0); transition: transform 1s cubic-bezier(0.23,1,0.32,1); }
-    .lang-bar.animate { transform: scaleX(1); }
-    .lang-level { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text); min-width: 80px; text-align: right; font-weight: 500; }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--muted);
-    }
-    footer a { color: var(--accent); text-decoration: none; }
-
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    /* DIVIDER */
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--border), transparent);
-      margin: 0 60px;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 20px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      backdrop-filter: blur(20px);
-      background: rgba(12,12,14,0.7);
-      border-bottom: 1px solid var(--border);
-      transform: translateY(-100%);
-      animation: slideDown 0.6s 1s forwards;
-    }
-    @keyframes slideDown {
-      to { transform: translateY(0); }
-    }
-
-    .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 18px;
-      letter-spacing: -0.02em;
-    }
-    .nav-logo span { color: var(--accent); }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-    .nav-links a {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--text); }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      nav { padding: 16px 24px; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 80px; }
-      .hero-left { padding: 40px 24px 60px; }
-      .hero-right { display: none; }
-      .section { padding: 80px 24px; }
-      .scroll-hint { left: 24px; }
-      footer { padding: 32px 24px; flex-direction: column; gap: 12px; text-align: center; }
-      .divider { margin: 0 24px; }
-      .soft-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-  </style>
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            padding: 1rem;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-muted);
+        }
+    </style>
 </head>
 <body>
-
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-
-  <nav>
-    <div class="nav-logo">CS<span>.</span></div>
-    <ul class="nav-links">
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#education">Educación</a></li>
-      <li><a href="#soft">Perfil</a></li>
-      <li><a href="#contact-section">Contacto</a></li>
-    </ul>
-  </nav>
-
-  <section class="hero">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-
-    <div class="hero-left">
-      <div class="tag">Desarrollador de Software Multiplataforma</div>
-      <h1 class="name">
-        Cristian<br>
-        <span>Roberto</span>
-        Saldaña
-      </h1>
-      <p class="hero-desc">
-        Estudiante apasionado por el desarrollo de software con experiencia práctica en Java Spring Boot, React y MySQL. Comprometido con el aprendizaje continuo y las mejores prácticas de código.
-      </p>
-      <div class="hero-contacts">
-        <a class="contact-chip" href="tel:+527774768039">
-          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
-          777-476-8039
-        </a>
-        <a class="contact-chip" href="mailto:saldanacristian266@gmail.com">
-          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          saldanacristian266@gmail.com
-        </a>
-        <a class="contact-chip" href="#">
-          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Temixco, Morelos
-        </a>
-      </div>
-    </div>
-
-    <div class="hero-right">
-      <div class="photo-wrap">
-        <div class="photo-inner">
-          <span class="photo-initials-fallback" aria-hidden="true">CS</span>
-          <img
-            src="./img.jpeg"
-            alt="Foto de Cristian Saldaña"
-            class="profile-pic"
-            onerror="this.style.display='none'"
-            loading="eager"
-          />
+<div class="cv-container" id="cvContainer">
+    <!-- Barra superior con controles -->
+    <div class="controls-bar">
+        <div class="lang-switch" id="langSwitch">
+            <span class="lang-option" data-lang="es">ES</span>
+            <span class="lang-option" data-lang="en">EN</span>
         </div>
-        <div class="photo-badge">Open to work</div>
-      </div>
+        <button id="themeToggleBtn" class="theme-icon-btn" title="Cambiar tema">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button id="exportPdfBtn" class="export-btn">
+            <i class="fas fa-file-pdf"></i> <span data-i18n="export_btn">PDF</span>
+        </button>
     </div>
 
-    <div class="scroll-hint">
-      <div class="scroll-line"></div>
-      SCROLL
+    <div class="cv-inner">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="image-manual-area">
+                <div class="avatar-frame">
+                    <!-- Tu imagen ahora se verá más grande y centrada -->
+                    <img src="./imgcv.jfif" alt="Cristian Roberto Saldaña Ortiz">
+                </div>
+            </div>
+            <h1 class="name">Cristian Roberto Saldaña Ortiz</h1>
+            <div class="badge-title"><span data-i18n="role_title">Ingeniería en Desarrollo y Gestión de Software</span></div>
+            <div class="divider"></div>
+            <div class="contact-section">
+                <div class="contact-item"><i class="fas fa-envelope"></i> cristian.saldana@utez.edu.mx</div>
+                <div class="contact-item"><i class="fas fa-phone-alt"></i> +52 777 123 4567</div>
+                <div class="contact-item"><i class="fas fa-map-marker-alt"></i> <span data-i18n="location">Morelos, México</span></div>
+                <div class="contact-item"><i class="fab fa-github"></i> github.com/cristian-dev</div>
+                <div class="contact-item"><i class="fab fa-linkedin"></i> linkedin.com/in/cristian-saldana</div>
+            </div>
+            <div class="divider"></div>
+        </div>
+
+        <!-- MAIN CONTENT (con animación) -->
+        <div class="main-content" id="mainContent">
+            <div class="section">
+                <div class="section-title"><i class="fas fa-user-astronaut"></i> <span data-i18n="about_title">Sobre mí</span></div>
+                <div class="about-text" id="aboutText"></div>
+            </div>
+            <div class="section">
+                <div class="section-title"><i class="fas fa-code-branch"></i> <span data-i18n="projects_title">Proyectos destacados</span></div>
+                <div class="projects-grid" id="projectsGrid"></div>
+            </div>
+            <div class="section">
+                <div class="section-title"><i class="fas fa-graduation-cap"></i> <span data-i18n="education_title">Educación</span></div>
+                <div id="educationList"></div>
+            </div>
+            <div class="section">
+                <div class="section-title"><i class="fas fa-language"></i> <span data-i18n="languages_title">Idiomas</span></div>
+                <div id="languagesList"></div>
+            </div>
+            <div class="section">
+                <div class="section-title"><i class="fas fa-heart"></i> <span data-i18n="softskills_title">Habilidades Blandas</span></div>
+                <div id="softSkillsList"></div>
+            </div>
+        </div>
     </div>
-  </section>
+    <footer><span data-i18n="footer_text">Cristian Roberto Saldaña Ortiz — 2026</span></footer>
+</div>
 
-  <div class="divider"></div>
-
-  <section class="section" id="skills">
-    <div class="section-label">Conocimientos técnicos</div>
-    <h2 class="section-title">Stack & Tools</h2>
-    <div class="skills-grid" id="skillsGrid"></div>
-  </section>
-
-  <div class="divider"></div>
-
-  <section class="section" id="education">
-    <div class="section-label">Trayectoria académica</div>
-    <h2 class="section-title">Educación</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="t-period">2024 — Actualidad</div>
-        <div class="t-degree">Ingeniería en Desarrollo y Gestión de Software</div>
-        <div class="t-school">Universidad Tecnológica Emiliano Zapata — UTEZ</div>
-        <span class="t-badge">En curso</span>
-      </div>
-      <div class="timeline-item">
-        <div class="t-period">2022 — 2024</div>
-        <div class="t-degree">TSU en Desarrollo de Software Multiplataforma</div>
-        <div class="t-school">Universidad Tecnológica Emiliano Zapata — UTEZ</div>
-        <span class="t-badge">Completado</span>
-      </div>
-      <div class="timeline-item">
-        <div class="t-period">2017 — 2022</div>
-        <div class="t-degree">Técnico en Informática</div>
-        <div class="t-school">CONALEP</div>
-        <span class="t-badge">Completado</span>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <section class="section" id="soft">
-    <div class="section-label">Perfil personal</div>
-    <h2 class="section-title">Habilidades</h2>
-    <div class="soft-grid" id="softGrid"></div>
-  </section>
-
-  <div class="divider"></div>
-
-  <section class="section" id="contact-section">
-    <div class="section-label">Idiomas</div>
-    <h2 class="section-title">Lenguas</h2>
-    <div class="lang-row">
-      <span class="lang-name">Español</span>
-      <div class="lang-bar-wrap"><div class="lang-bar" data-width="1"></div></div>
-      <span class="lang-level">Nativo</span>
-    </div>
-    <div class="lang-row">
-      <span class="lang-name">Inglés</span>
-      <div class="lang-bar-wrap"><div class="lang-bar" data-width="0.2"></div></div>
-      <span class="lang-level">A2</span>
-    </div>
-  </section>
-
-  <footer>
-    <span>© 2025 Cristian Saldaña — Temixco, Mor. MX</span>
-    <a href="mailto:saldanacristian266@gmail.com">saldanacristian266@gmail.com</a>
-  </footer>
-
-  <script>
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx - 5 + 'px'; cursor.style.top = my - 5 + 'px'; });
-    function animateRing() { rx += (mx - rx - 18) * 0.12; ry += (my - ry - 18) * 0.12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animateRing); }
-    animateRing();
-
-    const skills = [
-      { icon: '☕', name: 'Java' },
-      { icon: '🍃', name: 'Spring Boot' },
-      { icon: '⚛️', name: 'React JS' },
-      { icon: '📱', name: 'React Native' },
-      { icon: '🐦', name: 'Flutter' },
-      { icon: '🎯', name: 'Dart' },
-      { icon: '🌐', name: 'JavaScript' },
-      { icon: '🐬', name: 'MySQL' },
-      { icon: '🐙', name: 'Git / GitHub' },
-      { icon: '🐳', name: 'Docker' },
+<script>
+    // ---------- DATOS (fieles al CV original + secciones) ----------
+    const educationData = [
+        { degree_es: "Ingeniería en Desarrollo y Gestión de Software", degree_en: "Software Development and Management Engineering", institution: "Universidad Tecnológica Emiliano Zapata (UTEZ)", period: "2024 - 2026" },
+        { degree_es: "TSU en Desarrollo de Software Multiplataforma", degree_en: "University Higher Technician in Multiplatform Software Development", institution: "Universidad Tecnológica Emiliano Zapata (UTEZ)", period: "2022 - 2024" },
+        { degree_es: "Técnico en Informática", degree_en: "IT Technician", institution: "Conalep", period: "2017 - 2022" }
     ];
+    const languagesData = {
+        es: [ { name: "Español", level: "Lengua materna" }, { name: "Inglés", level: "Nivel A2 (lectura y escritura técnica)" } ],
+        en: [ { name: "Spanish", level: "Native language" }, { name: "English", level: "A2 Level (reading & technical writing)" } ]
+    };
+    const softSkillsData = {
+        es: [ "Liderazgo y comunicación asertiva en equipos multidisciplinarios.", "Resolución de problemas con enfoque analítico y orientado a resultados.", "Trabajo en equipo, empatía y paciencia para entornos colaborativos.", "Aprendizaje autodidacta y adaptación rápida a nuevas tecnologías." ],
+        en: [ "Leadership and assertive communication in multidisciplinary teams.", "Problem-solving with analytical and results-oriented approach.", "Teamwork, empathy and patience for collaborative environments.", "Self-directed learning and rapid adaptation to new technologies." ]
+    };
+    const aboutData = {
+        es: "👋 ¡Hola! Soy Cristian Saldaña, estudiante de Ingeniería en Desarrollo y Gestión de Software con pasión por crear soluciones tecnológicas funcionales y atractivas. Me encanta aprender nuevas herramientas, colaborar en equipo y enfrentar desafíos de lógica. Aspiro a desarrollar software que impacte positivamente a las personas. Actualmente me especializo en front-end y buenas prácticas de desarrollo.",
+        en: "👋 Hi! I'm Cristian Saldaña, Software Engineering student passionate about building functional and attractive tech solutions. I love learning new tools, collaborating in teams, and tackling logic challenges. I aspire to develop software that positively impacts people. Currently focusing on front-end and good development practices."
+    };
+    const projectsData = {
+        es: [
+            { title: "Sistema de Gestión Escolar", description: "Plataforma para administración de calificaciones y horarios (React + Node.js). Proyecto académico.", tech: "React, Express, MongoDB" },
+            { title: "Portfolio Interactivo", description: "CV web con modo oscuro, traducción y exportación a PDF, moderno y responsive.", tech: "HTML5, CSS3, JavaScript" },
+            { title: "App de Tareas Colaborativas", description: "Aplicación móvil para equipos de trabajo con sincronización en tiempo real (en desarrollo).", tech: "Flutter, Firebase" }
+        ],
+        en: [
+            { title: "School Management System", description: "Platform for grades and schedules management (React + Node.js). Academic project.", tech: "React, Express, MongoDB" },
+            { title: "Interactive Portfolio", description: "CV web with dark mode, i18n and PDF export, modern and responsive.", tech: "HTML5, CSS3, JavaScript" },
+            { title: "Collaborative Task App", description: "Mobile app for work teams with real-time sync (in development).", tech: "Flutter, Firebase" }
+        ]
+    };
+    const i18nTexts = {
+        es: { role_title: "Ingeniería en Desarrollo y Gestión de Software", location: "Morelos, México", export_btn: "PDF", about_title: "Sobre mí", projects_title: "Proyectos destacados", education_title: "Educación", languages_title: "Idiomas", softskills_title: "Habilidades Blandas", footer_text: "Cristian Roberto Saldaña Ortiz — 2026" },
+        en: { role_title: "Software Development and Management Engineering", location: "Morelos, Mexico", export_btn: "PDF", about_title: "About me", projects_title: "Featured Projects", education_title: "Education", languages_title: "Languages", softskills_title: "Soft Skills", footer_text: "Cristian Roberto Saldaña Ortiz — 2026" }
+    };
 
-    const sg = document.getElementById('skillsGrid');
-    skills.forEach((s, i) => {
-      const card = document.createElement('div');
-      card.className = 'skill-card';
-      card.style.animationDelay = i * 0.05 + 's';
-      card.innerHTML = `<span class="skill-icon">${s.icon}</span><span class="skill-name">${s.name}</span>`;
-      sg.appendChild(card);
-    });
+    let currentLang = 'es';
+    let currentTheme = 'light';
 
-    const softs = ['Liderazgo','Comunicación asertiva','Resolución de problemas','Trabajo en equipo','Empatía','Paciencia'];
-    const softG = document.getElementById('softGrid');
-    softs.forEach((s, i) => {
-      const card = document.createElement('div');
-      card.className = 'soft-card';
-      card.innerHTML = `<div class="soft-num">0${i+1}</div><div class="soft-name">${s}</div>`;
-      softG.appendChild(card);
-    });
+    // DOM elements
+    const mainContentDiv = document.getElementById('mainContent');
+    const educationContainer = document.getElementById('educationList');
+    const languagesContainer = document.getElementById('languagesList');
+    const softSkillsContainer = document.getElementById('softSkillsList');
+    const projectsContainer = document.getElementById('projectsGrid');
+    const aboutContainer = document.getElementById('aboutText');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const exportBtn = document.getElementById('exportPdfBtn');
+    const langOptions = document.querySelectorAll('.lang-option');
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          entry.target.querySelectorAll('.lang-bar').forEach(bar => {
-            const w = bar.dataset.width;
-            setTimeout(() => {
-              bar.style.transform = `scaleX(${w})`;
-              bar.classList.add('animate');
-            }, 300);
-          });
+    // Función para animar el cambio de idioma
+    function animateLanguageChange(callback) {
+        mainContentDiv.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+        mainContentDiv.classList.add('fade-transition');
+        setTimeout(() => {
+            callback();
+            mainContentDiv.classList.remove('fade-transition');
+        }, 180);
+    }
+
+    // Renderizar todo el contenido
+    function renderAll() {
+        // Educación
+        educationContainer.innerHTML = '';
+        educationData.forEach(edu => {
+            const degree = currentLang === 'es' ? edu.degree_es : edu.degree_en;
+            const div = document.createElement('div');
+            div.className = 'education-item';
+            div.innerHTML = `<div class="edu-degree">${degree}</div><div class="edu-institution">${edu.institution}</div><div class="edu-date">${edu.period}</div>`;
+            educationContainer.appendChild(div);
+        });
+        // Idiomas
+        languagesContainer.innerHTML = '';
+        languagesData[currentLang].forEach(lang => {
+            const div = document.createElement('div');
+            div.className = 'lang-item';
+            div.innerHTML = `<strong>${lang.name}</strong>: ${lang.level}`;
+            languagesContainer.appendChild(div);
+        });
+        // Soft skills
+        softSkillsContainer.innerHTML = '';
+        softSkillsData[currentLang].forEach(skill => {
+            const div = document.createElement('div');
+            div.className = 'skill-badge';
+            div.innerHTML = `<i class="fas fa-check-circle" style="margin-right: 8px; color: var(--accent);"></i> ${skill}`;
+            softSkillsContainer.appendChild(div);
+        });
+        // Proyectos
+        projectsContainer.innerHTML = '';
+        projectsData[currentLang].forEach(proj => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.innerHTML = `<div class="project-title"><i class="fas fa-folder-open"></i> ${proj.title}</div><div class="project-desc">${proj.description}</div><div class="tech-tag"><i class="fas fa-code"></i> ${proj.tech}</div>`;
+            projectsContainer.appendChild(card);
+        });
+        // About
+        aboutContainer.innerHTML = aboutData[currentLang];
+        // Textos estáticos
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (i18nTexts[currentLang][key]) el.innerText = i18nTexts[currentLang][key];
+        });
+        const roleSpan = document.querySelector('.badge-title span');
+        if (roleSpan) roleSpan.innerText = i18nTexts[currentLang].role_title;
+        // Resaltar opción activa en switch
+        langOptions.forEach(opt => {
+            if (opt.getAttribute('data-lang') === currentLang) opt.classList.add('active');
+            else opt.classList.remove('active');
+        });
+    }
+
+    // Tema oscuro/claro (icono dinámico)
+    function updateThemeUI() {
+        const isDark = document.body.classList.contains('dark');
+        const icon = themeToggleBtn.querySelector('i');
+        if (isDark) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            themeToggleBtn.title = "Modo claro";
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+            themeToggleBtn.title = "Modo oscuro";
         }
-      });
-    }, { threshold: 0.1 });
+    }
 
-    document.querySelectorAll('.section').forEach(s => observer.observe(s));
-  </script>
+    function applyTheme(theme) {
+        if (theme === 'dark') document.body.classList.add('dark');
+        else document.body.classList.remove('dark');
+        currentTheme = theme;
+        localStorage.setItem('cv_theme', currentTheme);
+        updateThemeUI();
+    }
+
+    function toggleTheme() {
+        applyTheme(currentTheme === 'light' ? 'dark' : 'light');
+    }
+
+    // Cambio de idioma con animación
+    function setLanguage(lang) {
+        if (lang === currentLang) return;
+        animateLanguageChange(() => {
+            currentLang = lang;
+            localStorage.setItem('cv_lang', currentLang);
+            renderAll();
+        });
+    }
+
+    // Exportar PDF
+    function exportPDF() { window.print(); }
+
+    // Inicialización
+    function init() {
+        const savedTheme = localStorage.getItem('cv_theme');
+        applyTheme(savedTheme === 'dark' ? 'dark' : 'light');
+        const savedLang = localStorage.getItem('cv_lang');
+        if (savedLang === 'en') currentLang = 'en';
+        else currentLang = 'es';
+        renderAll();
+        langOptions.forEach(opt => {
+            opt.addEventListener('click', () => setLanguage(opt.getAttribute('data-lang')));
+        });
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        exportBtn.addEventListener('click', exportPDF);
+    }
+    init();
+</script>
 </body>
 </html>
